@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form with Colorful Table</title>
+    <script>
+        // Liste des couleurs possibles
+        var colors = ["#FFC0CB", "#ADD8E6", "#90EE90", "#FFD700", "#FFA07A", "#20B2AA", "#FFB6C1", "#EEE8AA"];
+
+        // Fonction pour générer une couleur aléatoire à partir de la liste
+        function getRandomColor() {
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        // Fonction pour ajouter une ligne au tableau avec les valeurs du formulaire
+        function addToTable() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            if(username === "" || password === "") {
+                alert("Both fields are required.");
+                return;
+            }
+
+            var table = document.getElementById("userTable");
+
+            // Crée une nouvelle ligne
+            var row = table.insertRow();
+
+            // Applique une couleur de fond aléatoire à la ligne
+            row.style.backgroundColor = getRandomColor();
+
+            // Ajoute les cellules (username, password, et bouton delete)
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+
+            cell1.innerHTML = username;
+            cell2.innerHTML = password;
+            cell3.innerHTML = `<button onclick="deleteRow(this)">Delete</button>`;
+
+            // Vide les champs du formulaire
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
+        }
+
+        // Fonction pour supprimer une ligne
+        function deleteRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+        // Prévenir le rechargement de la page lors de la soumission du formulaire
+        function handleSubmit(event) {
+            event.preventDefault();
+            addToTable();
+        }
+    </script>
+</head>
+<body>
+<h2>Login Form</h2>
+<form id="loginForm" onsubmit="handleSubmit(event)">
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username"><br><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br><br>
+
+    <input type="submit" value="Add to Table">
+</form>
+
+<h2>Users Table</h2>
+<table id="userTable" border="1">
+    <tr>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Action</th>
+    </tr>
+    <!-- Les nouvelles lignes seront ajoutées ici -->
+</table>
+</body>
+</html>

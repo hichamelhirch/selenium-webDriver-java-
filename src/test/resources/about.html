@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Dropdown with Table</title>
+    <script>
+        // Fonction pour ajouter le fruit sélectionné dans le tableau
+        function addToTable() {
+            var fruit = document.getElementById("fruits").value;
+
+            // Créer une nouvelle ligne dans le tableau
+            var table = document.getElementById("fruitTable");
+            var row = table.insertRow();
+
+            // Ajouter les cellules (fruit sélectionné et bouton delete)
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+
+            cell1.innerHTML = fruit;
+            cell2.innerHTML = `<button onclick="deleteRow(this)">Delete</button>`;
+        }
+
+        // Fonction pour supprimer une ligne du tableau
+        function deleteRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+        // Empêcher la redirection à la soumission du formulaire
+        function handleSubmit(event) {
+            event.preventDefault();
+            addToTable();
+        }
+    </script>
+</head>
+<body>
+<h2>Select your favorite fruit:</h2>
+<form id="fruitForm" onsubmit="handleSubmit(event)">
+    <label for="fruits">Choose a fruit:</label><br>
+    <select id="fruits" name="fruits">
+        <option value="apple">Apple</option>
+        <option value="banana">Banana</option>
+        <option value="orange">Orange</option>
+        <option value="grape">Grape</option>
+    </select><br><br>
+
+    <input type="submit" value="Add to Table">
+</form>
+
+<h2>Selected Fruits</h2>
+<table id="fruitTable" border="1">
+    <tr>
+        <th>Fruit</th>
+        <th>Action</th>
+    </tr>
+    <!-- Les lignes ajoutées apparaîtront ici -->
+</table>
+
+<h2>Click the button</h2>
+<button id="clickButton" onclick="alert('Button clicked!')">Click me</button>
+</body>
+</html>
